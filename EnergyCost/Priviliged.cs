@@ -10,8 +10,8 @@ namespace EnergyCost
     {
         public Priviliged()
         {
-            Plan = 0.10;
-            EnergiCost = Plan * EnergiAmount;
         }
+
+        protected override decimal Сoefficient => PlanCost * ((decimal)2 / 3);
     }
 }

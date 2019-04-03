@@ -1,53 +1,34 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EnergyCost
 {
-    public class Client: IComparable
+    public abstract class Client : IComparable
     {
-        private string clientName;
-        private double clientPlan;
-        private int energiAmount;
-        private double energiCost;
+        protected const decimal PlanCost = 0.15M;
+        public virtual decimal EnergyCost => EnergiAmount * Сoefficient * PlanCost;
+        protected abstract decimal Сoefficient { get; }
+        private string _clientName;
+        private double _clientPlan;
+        private int _energiAmount;
+        private double _energiCost;
 
         public string Name
         {
-            get { return clientName; }
-            set { clientName = value; }
+            get { return _clientName; }
+            set { _clientName = value; }
         }
-        public double Plan
-        {
-            get { return clientPlan; }
-            set { clientPlan = value; }//to think about condtion
-        }
+       
         public int EnergiAmount
         {
-            get { return energiAmount; }
-            set { energiAmount = value; }
-        }
-        public double EnergiCost
-        {
-            get { return energiCost; }
-            set { energiCost = value; }
-        }
-        public Client()
-        {
-            Name = null;
-            Plan = 0;
-            EnergiAmount = 0;
-            EnergiCost = 0;
-
+            get { return _energiAmount; }
+            set { _energiAmount = value; }
         }
         
 
         public override string ToString()
         {
             string output = null;
-            output = string.Format( " Name: {0}; Energi {1}, cost:{2}", Name, EnergiAmount, EnergiCost);
+            output = string.Format( " Name: {0}; Energi {1}, cost:{2} typePlan{3}", Name, EnergiAmount, EnergyCost, GetType());
             return output;
         }
 
@@ -57,12 +38,7 @@ namespace EnergyCost
             if (c != null)
                 return this.EnergiAmount.CompareTo(c.EnergiAmount);
             else
-                throw new Exception("Невозможно сравнить два объекта");
+                throw new Exception("Невозможно сравнить два клиента");
         }
-      
-
-    
-
-       
     }
 }

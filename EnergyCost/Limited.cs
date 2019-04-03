@@ -1,43 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EnergyCost
+﻿namespace EnergyCost
 {
     public class Limited : Client
     {
-        private int limit;
-        private double unlimitedCost;
-        public int Limit {get; set;}
-        public double UnlimitedCost { get; set; }
+        private const int LimitLevel = 250;
+
+        public override decimal EnergyCost => GetCost(LimitLevel, _afterLimitCost, EnergiAmount);
+
+        protected override decimal Сoefficient => 1 / 3;
+
+        private decimal _afterLimitCost => PlanCost + (PlanCost * Сoefficient);
 
         public Limited()
         {
-            UnlimitedCost = 0.15;
-            Limit = 250;
-            Plan = 0.20;
-            EnergiCost = GetCost(Limit, Plan, EnergiAmount);
         }
-        public double GetCost(int limit, double prise, int amount)
+
+        private decimal GetCost(int limit, decimal prise, int amount)
         {
-            double result=0;
-            int usedEnergi = amount;
-            
             if (amount > 250)
             {
-                result = UnlimitedCost * Limit;
-                usedEnergi = usedEnergi - Limit;
-                result = result + usedEnergi * Plan;
-                return result;
+                decimal discountCost = PlanCost * limit;
+                int overLimitLevel = amount - limit;
+                return discountCost + (overLimitLevel * _afterLimitCost);
             }
-            else
-            {
-                result= Plan * EnergiAmount;
 
-            }
-            return result;
+            return amount * PlanCost;
         }
     }
 }

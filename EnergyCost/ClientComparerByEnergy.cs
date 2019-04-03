@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EnergyCost
 {
-    class ClientComparer : IComparer<Client>
+    class ClientComparerByEnergy : IComparer<Client>
     {
         static readonly Type[] priority = { typeof(Common), typeof(Limited), typeof(Priviliged), typeof(HeatingPurposed) };
         public int Compare(Client x, Client y)
@@ -26,4 +23,5 @@ namespace EnergyCost
 
         }
     }
+
 }

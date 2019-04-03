@@ -22,6 +22,9 @@ namespace EnergyCost
             PrintData(clientsData);
             SortByPlan(clientsData);
             PrintData(clientsData);
+            SortByCost(clientsData);
+            PrintData(clientsData);
+            Console.WriteLine("the sum of cost:{0}", calculateSum(clientsData));
 
 
             Console.Read();
@@ -119,11 +122,33 @@ namespace EnergyCost
             Array.Reverse(arr);
         }
 
-    public static  void SortByPlan(Client[] arr)
+    public static  void SortByPlan(Client [] arr)
         {
             Console.WriteLine("Sorted by Plan");
-            Array.Sort(arr, new ClientComparer());
+            Array.Sort(arr, new ClientComparerByEnergy());
         }
-
+        public static void SortByCost(Client [] arr)
+        {
+            Console.WriteLine("Sorted by Cost");
+            Array.Sort(arr, new ClientComparerByCost());
+        }
+        public static decimal calculateSum(Client [] arr)
+        {
+            decimal sumCost = 0;
+            for(int i=0; i < arr.Length; i++)
+            {
+                sumCost += arr[i].EnergyCost;
+            }
+            return sumCost;
+        }
+     /*   public static decimal calculateSumUnlimited(Client [] arr)
+        {
+            decimal sumCost = 0;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                sumCost += arr[i].EnergyCost;
+            }
+            return sumCost;
+        }*/
     }
 }
