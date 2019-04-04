@@ -4,8 +4,7 @@
     {
         public Common()
         {
-        }
-
-        protected override decimal Сoefficient => 1;
+        }              
     }
+
 }

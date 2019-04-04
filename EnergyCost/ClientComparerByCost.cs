@@ -14,12 +14,23 @@ namespace EnergyCost
             {
                 return 0;
             }
+            if (ReferenceEquals(x, null))
+            {
+                return 1;
+            }
+            if (ReferenceEquals(y, null))
+            {
+                return -1;
+            }
 
-            if (ReferenceEquals(x, null)) return 1;
-            if (ReferenceEquals(y, null)) return -1;
-
-            if (x.EnergyCost > y.EnergyCost) return 1;
-            if (x.EnergyCost < y.EnergyCost) return -1;
+            if (x.CostOfEnergy > y.CostOfEnergy)
+            {
+                return 1;
+            }
+            if (x.CostOfEnergy < y.CostOfEnergy)
+            {
+                return -1;
+            }
             return 0;
         }
     }
